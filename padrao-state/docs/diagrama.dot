@@ -1,0 +1,28 @@
+digraph UML {
+  rankdir=TB; nodesep=0.5; ranksep=0.8;
+  node [shape=record, fontname="Helvetica", fontsize=11, style=filled, fillcolor="#FFFFFF"];
+  edge [fontname="Helvetica", fontsize=10];
+
+  Paciente [label="{Paciente\n(Context)|- nome : String\l- estado : PacienteEstado\l|+ setEstado(estado)\l+ atender() : boolean\l+ internar() : boolean\l+ encaminharUti() : boolean\l+ estabilizar() : boolean\l+ darAlta() : boolean\l+ registrarObito() : boolean\l+ getNomeEstado() : String\l}", fillcolor="#FFF8DC"];
+
+  PacienteEstado [label="{«abstract»\nPacienteEstado|+ getEstado() : String\l+ atender(p) : boolean\l+ internar(p) : boolean\l+ encaminharUti(p) : boolean\l+ estabilizar(p) : boolean\l+ darAlta(p) : boolean\l+ registrarObito(p) : boolean\l}", fillcolor="#E6F2FF"];
+
+  Aguardando [label="{PacienteEstadoAguardandoAtendimento|+ getInstance()\l+ atender(p)\l}", fillcolor="#E6F2FF"];
+  EmAtendimento [label="{PacienteEstadoEmAtendimento|+ getInstance()\l+ internar(p)\l+ darAlta(p)\l+ registrarObito(p)\l}", fillcolor="#E6F2FF"];
+  Internado [label="{PacienteEstadoInternado|+ getInstance()\l+ encaminharUti(p)\l+ darAlta(p)\l+ registrarObito(p)\l}", fillcolor="#E6F2FF"];
+  EmUti [label="{PacienteEstadoEmUti|+ getInstance()\l+ estabilizar(p)\l+ registrarObito(p)\l}", fillcolor="#E6F2FF"];
+  Alta [label="{PacienteEstadoAlta|+ getInstance()\l}", fillcolor="#E6F2FF"];
+  Obito [label="{PacienteEstadoObito|+ getInstance()\l}", fillcolor="#E6F2FF"];
+
+  Paciente -> PacienteEstado [arrowhead=vee, taillabel="1", headlabel="estado", labeldistance=2.5];
+  edge [arrowhead=empty];
+  Aguardando -> PacienteEstado;
+  EmAtendimento -> PacienteEstado;
+  Internado -> PacienteEstado;
+  EmUti -> PacienteEstado;
+  Alta -> PacienteEstado;
+  Obito -> PacienteEstado;
+
+  Nota [shape=note, fillcolor="#FFFFE0", fontsize=10, label="Cada estado concreto (Singleton) implementa só as\ltransições válidas e chama Paciente.setEstado().\lTransições não implementadas retornam false.\l"];
+  Nota -> Paciente [style=dashed, arrowhead=none];
+}

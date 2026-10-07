@@ -1,0 +1,10 @@
+digraph E {
+  rankdir=LR; node [shape=box, style="rounded,filled", fillcolor="#E6F2FF", fontname="Helvetica"]; edge [fontname="Helvetica", fontsize=10];
+  start [shape=circle, label="", width=0.2, fillcolor=black];
+  start -> A;
+  A [label="Aguardando\natendimento"]; B [label="Em atendimento"]; C [label="Internado"]; D [label="Em UTI"];
+  E [label="Alta", shape=doublecircle, fillcolor="#E8F8E8"]; F [label="Óbito", shape=doublecircle, fillcolor="#EEEEEE"];
+  A -> B [label="atender"]; B -> C [label="internar"]; B -> E [label="darAlta"];
+  C -> D [label="encaminharUti"]; D -> C [label="estabilizar"]; C -> E [label="darAlta"];
+  B -> F [label="registrarObito"]; C -> F [label="registrarObito"]; D -> F [label="registrarObito"];
+}
